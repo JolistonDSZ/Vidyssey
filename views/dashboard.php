@@ -2,6 +2,7 @@
 session_start();
 require_once "../models/Favorite.php";
 require_once "../models/Review.php";
+require_once "../models/Watchlist.php";  // ✅ Ajout du modèle Watchlist
 
 // Vérifie que l'utilisateur est connecté
 if (!isset($_SESSION["user_id"])) {
@@ -9,44 +10,47 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-// Récupérer tous les films favoris de l'utilisateur
-$favorites = Favorite::getFavorites($_SESSION["user_id"]);
+$userId = $_SESSION["user_id"];
+$favorites = Favorite::getFavorites($userId);
+$watchlist = Watchlist::getWatchlist($userId);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Mon espace - Mes films favoris</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Mon espace - Mes films</title>
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <?php include "navbar.php"; ?>
+
     <div class="container">
-        <h1>Mes films favoris</h1>
+        <h1>Mes Films Favoris</h1>
         <div class="movies-list">
             <?php if (empty($favorites)): ?>
-                <p>Vous n'avez aucun film favori.</p>
+                <p>Vous n'avez aucun film en favori.</p>
             <?php else: ?>
                 <?php foreach ($favorites as $movie): ?>
                     <div class="movie-card">
+                        <img src="<?= !empty($movie["image_url"]) ? htmlspecialchars($movie["image_url"]) : '../images/default.jpg' ?>" width="200">
                         <h3><?= htmlspecialchars($movie["title"]) ?></h3>
                         <p><?= htmlspecialchars($movie["description"]) ?></p>
                         <small>Sorti en <?= $movie["release_year"] ?></small>
 
-                        <!-- Formulaire pour retirer le film des favoris -->
+                        <!-- Retirer des favoris -->
                         <form action="../controllers/FavoriteController.php" method="POST">
-                            <input type="hidden" name="movie_id" value="<?= htmlspecialchars($movie["id"]) ?>">
+                            <input type="hidden" name="movie_id" value="<?= $movie["id"] ?>">
                             <button type="submit" name="action" value="remove">Retirer des favoris</button>
                         </form>
 
-                        <!-- Formulaire pour ajouter un avis si aucun avis n'est encore laissé -->
+                        <!-- Gestion des avis -->
                         <?php
-                        // Vérifier si l'utilisateur a déjà ajouté un avis pour ce film
-                        $review = Review::getReviewByUserAndMovie($_SESSION["user_id"], $movie["id"]);
+                        $review = Review::getReviewByUserAndMovie($userId, $movie["id"]);
                         if ($review): ?>
                             <p><strong>Votre avis :</strong></p>
                             <p><?= htmlspecialchars($review["comment"]) ?> (Note : <?= $review["rating"] ?>/5)</p>
-                            <!-- Formulaire pour modifier l'avis -->
+
+                            <!-- Modifier l'avis -->
                             <form action="../controllers/ReviewController.php" method="POST">
                                 <input type="hidden" name="movie_id" value="<?= $movie["id"] ?>">
                                 <input type="hidden" name="review_id" value="<?= $review["id"] ?>">
@@ -54,14 +58,15 @@ $favorites = Favorite::getFavorites($_SESSION["user_id"]);
                                 <input type="number" name="rating" value="<?= $review["rating"] ?>" min="1" max="5">
                                 <button type="submit" name="action" value="update">Mettre à jour l'avis</button>
                             </form>
-                            <!-- Formulaire pour supprimer l'avis -->
+
+                            <!-- Supprimer l'avis -->
                             <form action="../controllers/ReviewController.php" method="POST">
                                 <input type="hidden" name="movie_id" value="<?= $movie["id"] ?>">
                                 <input type="hidden" name="review_id" value="<?= $review["id"] ?>">
                                 <button type="submit" name="action" value="delete">Supprimer l'avis</button>
                             </form>
                         <?php else: ?>
-                            <!-- Formulaire pour ajouter un avis si aucun avis n'existe encore -->
+                            <!-- Ajouter un avis -->
                             <form action="../controllers/ReviewController.php" method="POST">
                                 <input type="hidden" name="movie_id" value="<?= $movie["id"] ?>">
                                 <textarea name="comment" placeholder="Laissez un avis..."></textarea>
@@ -69,6 +74,29 @@ $favorites = Favorite::getFavorites($_SESSION["user_id"]);
                                 <button type="submit" name="action" value="add">Ajouter un avis</button>
                             </form>
                         <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        <br>
+        <br>
+        <h1>Ma Watchlist</h1>
+        <div class="movies-list">
+            <?php if (empty($watchlist)): ?>
+                <p>Votre Watchlist est vide.</p>
+            <?php else: ?>
+                <?php foreach ($watchlist as $movie): ?>
+                    <div class="movie-card">
+                        <img src="<?= !empty($movie["image_url"]) ? htmlspecialchars($movie["image_url"]) : '../images/default.jpg' ?>" width="200">
+                        <h3><?= htmlspecialchars($movie["title"]) ?></h3>
+                        <p><?= htmlspecialchars($movie["description"]) ?></p>
+                        <small>Sorti en <?= $movie["release_year"] ?></small>
+
+                        <!-- Retirer de la Watchlist -->
+                        <form action="../controllers/WatchlistController.php" method="POST">
+                            <input type="hidden" name="movie_id" value="<?= $movie["id"] ?>">
+                            <button type="submit" name="action" value="remove">Retirer de la Watchlist</button>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
