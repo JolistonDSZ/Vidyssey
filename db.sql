@@ -12,7 +12,6 @@ CREATE TABLE movies (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     release_year INT,
-    image_url VARCHAR(255)
 );
 
 CREATE TABLE favorites (
@@ -55,4 +54,7 @@ VALUES
     ('The Matrix', 'Un programmeur découvre que la réalité dans laquelle il vit est en fait une simulation informatique.', 1999, 'the_matrix.jpg'),
     ('Titanic', 'Un passager de première classe et une jeune fille se retrouvent sur le bateau de luxe, Titanic, avant quil ne sombre.', 1997, 'https://fr.pinterest.com/pin/480688960207042366/'),
     ('theMenu', 'un film de cuisine', 1997, 'leMenu.jpg');
-    
+
+
+INSERT INTO users (username, password, role) 
+VALUES ('ego', '$2y$10$DppDo6IYTjJ4XHjP/dTIPuZYs58r34L5NxlkAJwG7kvuOFr2I4yp2', 'admin'); -- mot de passe : admin

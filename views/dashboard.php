@@ -32,7 +32,6 @@ $watchlist = Watchlist::getWatchlist($userId);
             <?php else: ?>
                 <?php foreach ($favorites as $movie): ?>
                     <div class="movie-card">
-                        <img src="<?= !empty($movie["image_url"]) ? htmlspecialchars($movie["image_url"]) : '../images/default.jpg' ?>" width="200">
                         <h3><?= htmlspecialchars($movie["title"]) ?></h3>
                         <p><?= htmlspecialchars($movie["description"]) ?></p>
                         <small>Sorti en <?= $movie["release_year"] ?></small>

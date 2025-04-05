@@ -5,7 +5,7 @@ class Movie {
     // Récupérer tous les films
     public static function getAllMovies() {
         global $pdo;
-        $stmt = $pdo->query("SELECT id, title, description, release_year, image_url FROM movies");
+        $stmt = $pdo->query("SELECT id, title, description, release_year FROM movies");
         return $stmt->fetchAll();
     }
     
@@ -24,5 +24,20 @@ class Movie {
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
+
+    // Modifier un film
+public static function updateMovie($id, $title, $description, $release_year) {
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE movies SET title = ?, description = ?, release_year = ? WHERE id = ?");
+    return $stmt->execute([$title, $description, $release_year, $id]);
+}
+
+// Supprimer un film
+public static function deleteMovie($id) {
+    global $pdo;
+    $stmt = $pdo->prepare("DELETE FROM movies WHERE id = ?");
+    return $stmt->execute([$id]);
+}
+
 }
 ?>
