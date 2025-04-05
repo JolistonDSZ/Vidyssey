@@ -46,14 +46,34 @@ CREATE TABLE watchlist (
 -- ALTER TABLE movies ADD COLUMN image_filename VARCHAR(255);
 
 -- Insérer des films avec le nom des fichiers image
-INSERT INTO movies (title, description, release_year, image_url)
+INSERT INTO movies (title, description, release_year)
 VALUES
-    ('Inception', 'Un voleur qui pénètre dans le subconscient des gens pour voler des secrets.', 2010, 'inception.jpg'),
-    ('The Dark Knight', 'Batman combat le Joker, un criminel qui veut plonger Gotham dans le chaos.', 2008, 'dark_knight.jpg'),
-    ('Interstellar', 'Un groupe dastronautes voyage à travers un trou de ver pour trouver une nouvelle planète habitable.', 2014, 'interstellar.jpg'),
-    ('The Matrix', 'Un programmeur découvre que la réalité dans laquelle il vit est en fait une simulation informatique.', 1999, 'the_matrix.jpg'),
-    ('Titanic', 'Un passager de première classe et une jeune fille se retrouvent sur le bateau de luxe, Titanic, avant quil ne sombre.', 1997, 'https://fr.pinterest.com/pin/480688960207042366/'),
-    ('theMenu', 'un film de cuisine', 1997, 'leMenu.jpg');
+    ("Inception", "Un voleur qui pénètre dans le subconscient des gens pour voler des secrets.", 2010),
+    ("The Shawshank Redemption", "Deux hommes se lient d’amitié dans une prison et trouvent la rédemption.", 1994),
+    ("The Godfather", "L’histoire de la famille mafieuse Corleone et de son patriarche, Vito Corleone.", 1972),
+    ("Pulp Fiction", "Un film à sketches qui entrecroise plusieurs histoires de criminels à Los Angeles.", 1994),
+    ("Forrest Gump", "La vie extraordinaire d’un homme simple qui traverse les événements majeurs du XXe siècle.", 1994),
+    ("The Lord of the Rings: The Fellowship of the Ring", "Un hobbit et ses amis partent en quête pour détruire un anneau maléfique.", 2001),
+    ("Fight Club", "Un homme désillusionné crée un club de combat clandestin pour échapper à sa vie monotone.", 1999),
+    ("The Social Network", "L’histoire de la création de Facebook et des conflits qui en ont découlé.", 2010),
+    ("Gladiator", "Un général romain trahi devient gladiateur pour venger sa famille.", 2000),
+    ("The Silence of the Lambs", "Une jeune agente du FBI consulte un tueur en série pour capturer un autre tueur.", 1991),
+    ("Schindler’s List", "L’histoire vraie d’Oskar Schindler, qui a sauvé des Juifs pendant l’Holocauste.", 1993),
+    ("The Dark Knight Rises", "Huit ans après les événements de Gotham, Batman doit faire face à un nouveau méchant, Bane.", 2012),
+    ("The Avengers", "Un groupe de super-héros s’unit pour combattre une menace extraterrestre.", 2012),
+    ("Avatar", "Un ancien marine est envoyé sur une lune extraterrestre et se retrouve impliqué dans un conflit.", 2009),
+    ("Jurassic Park", "Des scientifiques créent un parc à thème avec des dinosaures clonés, mais tout ne se passe pas comme prévu.", 1993),
+    ("Star Wars: Episode IV - A New Hope", "Un jeune fermier rejoint une rébellion pour combattre un empire maléfique.", 1977),
+    ("The Lion King", "Un jeune lion doit retrouver son trône après la mort de son père.", 1994),
+    ("Harry Potter and the Sorcerer’s Stone", "Un jeune garçon découvre qu’il est un sorcier et entre dans une école de magie.", 2001),
+    ("The Wizard of Oz", "Une jeune fille est transportée dans un monde magique et doit trouver son chemin pour rentrer chez elle.", 1939),
+    ("Back to the Future", "Un adolescent voyage dans le temps pour s’assurer que ses parents se rencontrent.", 1985),
+    ("The Dark Knight", "Batman combat le Joker, un criminel qui veut plonger Gotham dans le chaos.", 2008),
+    ("Interstellar", "Un groupe d’astronautes voyage à travers un trou de ver pour trouver une nouvelle planète habitable.", 2014),
+    ("The Matrix", "Un programmeur découvre que la réalité dans laquelle il vit est en fait une simulation informatique.", 1999),
+    ("Titanic", "Un passager de première classe et une jeune fille se retrouvent sur le bateau de luxe, Titanic, avant qu’il ne sombre.", 1997),
+    ("The Menu", "Un film de cuisine", 1997);
+
 
 
 INSERT INTO users (username, password, role) 
