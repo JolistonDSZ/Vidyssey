@@ -12,7 +12,7 @@ CREATE TABLE movies (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    release_year INT,
+    release_year INT
 );
 
 CREATE TABLE favorites (
