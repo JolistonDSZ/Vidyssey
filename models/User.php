@@ -36,6 +36,14 @@ class User {
         $stmt->execute([$userId]);
         return $stmt->fetch(); // Retourne toutes les informations de l'utilisateur
     }
+
+    public static function getUserByUsername($username) {
+        global $pdo;
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        return $stmt->fetch(); // Si l'utilisateur existe, retourne ses informations
+    }
+    
     
 }
 ?>

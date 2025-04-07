@@ -4,7 +4,8 @@ USE films_db;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT 'user'
 );
 
 CREATE TABLE movies (
@@ -77,4 +78,5 @@ VALUES
 
 
 INSERT INTO users (username, password, role) 
-VALUES ('ego', '$2y$10$DppDo6IYTjJ4XHjP/dTIPuZYs58r34L5NxlkAJwG7kvuOFr2I4yp2', 'admin'); -- mot de passe : admin
+VALUES ('pego', '$2y$10$DppDo6IYTjJ4XHjP/dTIPuZYs58r34L5NxlkAJwG7kvuOFr2I4yp2', 'user'),
+('ego', '$2y$10$DppDo6IYTjJ4XHjP/dTIPuZYs58r34L5NxlkAJwG7kvuOFr2I4yp2', 'admin'); -- mot de passe : admin
